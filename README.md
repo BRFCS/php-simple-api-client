@@ -23,7 +23,9 @@ composer require thojou/php-simple-api-client:dev-master
 
 To start implementing your REST API client with the Simple API Client library, follow these steps:
 
-### 1. Create Your API Class
+### Quick Start
+
+#### 1. Create Your API Class
 
 Extend the ``Thojou\SimpleApiClient\AbstractApi`` class to create your API client class. Implement the onSuccessResponse, onRedirectResponse, and onErrorResponse methods to handle different types of responses.
 
@@ -32,7 +34,7 @@ Extend the ``Thojou\SimpleApiClient\AbstractApi`` class to create your API clien
 
 use Thojou\SimpleApiClient\AbstractApi;
 use Thojou\SimpleApiClient\Contracts\ClientFactoryInterface;
-use Thojou\DSimpleApiClient\Exception\ApiException;
+use Thojou\SimpleApiClient\Exception\ApiException;
 
 class MyApi extends AbstractApi
 {
@@ -53,7 +55,7 @@ class MyApi extends AbstractApi
 }
 ```
 
-### 2. Create Your Request Class
+#### 2. Create Your Request Class
 
 Implement the ``Thojou\SimpleApiClient\Contracts\RequestInterface`` interface to create your request class. Define the HTTP method, URI, headers, body format, and body as needed for your API endpoint.
 
@@ -83,7 +85,7 @@ class MyRequest implements RequestInterface
     
     public function getBodyFormat(): BodyFormat
     {
-        return BodyFormat::Empty();
+        return BodyFormat::Empty;
     }
 
     public function getBody(): null|array
@@ -93,7 +95,7 @@ class MyRequest implements RequestInterface
 }
 ````
 
-### 3. Use Your API Client
+#### 3. Use Your API Client
 
 Now, you can use your API client to make requests to the API endpoints. Here's an example of how to create an instance of your API and send a request:
 
