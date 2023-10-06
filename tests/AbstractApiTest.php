@@ -41,9 +41,9 @@ class AbstractApiTest extends TestCase
             ->method('create')
             ->willReturn($clientMock);
 
-        $clientMock
-            ->method('promisify')
-            ->willReturn($this->createMock(PromiseInterface::class));
+        $requestMock
+            ->method('getMethod')
+            ->willReturn(RequestMethod::GET);
 
         $apiInstance->send($requestMock);
 
@@ -65,9 +65,9 @@ class AbstractApiTest extends TestCase
             ->method('create')
             ->willReturn($clientMock);
 
-        $clientMock
-            ->method('promisify')
-            ->willReturn($this->createMock(PromiseInterface::class));
+        $requestMock
+            ->method('getMethod')
+            ->willReturn(RequestMethod::GET);
 
         $result = $apiInstance->sendAsync($requestMock);
 

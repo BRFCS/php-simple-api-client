@@ -44,16 +44,4 @@ class GuzzleClientAdapterTest extends TestCase
         $this->assertInstanceOf(GuzzlePromiseAdapter::class, $result);
         $this->assertSame($responseMock, $result->wait());
     }
-
-    public function testPromisify(): void
-    {
-        $callable = function () {
-            return new Promise(function () {});
-        };
-
-        $guzzleAdapter = new GuzzleClientAdapter($this->createMock(ClientInterface::class));
-
-        $result = $guzzleAdapter->promisify($callable);
-        $this->assertInstanceOf(GuzzlePromiseAdapter::class, $result);
-    }
 }

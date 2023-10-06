@@ -14,10 +14,8 @@ declare(strict_types=1);
 namespace Thojou\SimpleApiClient\Adapter;
 
 use GuzzleHttp\ClientInterface as GuzzleClientInterface;
-use GuzzleHttp\Promise\Promise;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Thojou\SimpleApiClient\Contracts\ClientInterface;
-use Thojou\SimpleApiClient\Contracts\PromiseInterface;
 
 class GuzzleClientAdapter implements ClientInterface
 {
@@ -38,15 +36,5 @@ class GuzzleClientAdapter implements ClientInterface
         $promise = $this->client->requestAsync($method, $uri, $options);
 
         return new GuzzlePromiseAdapter($promise);
-    }
-
-    /**
-     * @param callable $callable
-     *
-     * @return PromiseInterface<mixed>
-     */
-    public function promisify(callable $callable): PromiseInterface
-    {
-        return new GuzzlePromiseAdapter(new Promise($callable));
     }
 }

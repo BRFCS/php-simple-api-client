@@ -45,27 +45,24 @@ abstract class AbstractApi
     /**
      * @param RequestInterface $request
      *
-     * @return PromiseInterface<mixed>
+     * @return PromiseInterface<ResponseInterface>
      */
     public function sendAsync(RequestInterface $request): PromiseInterface
     {
-        return $this->client->promisify(
-            fn ($resolve) => $this->client
-                ->send(
-                    $request->getMethod()->value,
-                    $request->getUri(),
-                    $this->resolveRequestOptions($request)
+        return $this->client
+            ->send(
+                $request->getMethod()->value,
+                $request->getUri(),
+                $this->resolveRequestOptions($request)
+            )
+            ->then(
+                fn (ResponseInterface $response) => $this->handleResponse($response),
+                fn (Throwable $exception) => throw new ApiException(
+                    $exception->getMessage(),
+                    $exception->getCode(),
+                    $exception
                 )
-                ->then(fn (ResponseInterface $response) => $this->handleResponse($response))
-                ->then(fn ($result) => $resolve($result))
-                ->otherwise(
-                    fn (Throwable $exception) => throw new ApiException(
-                        $exception->getMessage(),
-                        $exception->getCode(),
-                        $exception
-                    )
-                )
-        );
+            );
     }
 
     protected function handleResponse(ResponseInterface $response): mixed

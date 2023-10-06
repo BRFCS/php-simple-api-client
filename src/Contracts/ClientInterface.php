@@ -25,12 +25,4 @@ interface ClientInterface
      * @return PromiseInterface<Psr7ResponseInterface>
      */
     public function send(string $method, string $uri, array $options = []): PromiseInterface;
-
-    /**
-     * @param callable $callable
-     *
-     * @return PromiseInterface<mixed>
-     */
-    public function promisify(callable $callable): PromiseInterface;
-
 }
